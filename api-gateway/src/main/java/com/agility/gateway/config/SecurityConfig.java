@@ -18,6 +18,8 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
+                // CSRF disabled intentionally: API Gateway uses stateless JWT Bearer token auth,
+                // not cookie/session-based auth, so CSRF attacks are not applicable.
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchanges -> exchanges
