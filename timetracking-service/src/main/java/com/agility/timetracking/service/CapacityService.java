@@ -32,6 +32,7 @@ public class CapacityService {
 
     public Double calculateLoadRate(Long userId, Double weeklyCapacityHours, LocalDate startDate, LocalDate endDate) {
         double hoursLogged = calculateIndividualCapacity(userId, startDate, endDate);
+        // Calendar-based calculation: partial weeks are prorated proportionally
         long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
         double weeks = days / 7.0;
         double totalCapacity = weeklyCapacityHours * weeks;
@@ -51,7 +52,7 @@ public class CapacityService {
             alert.setSprintId(sprintId);
             alert.setAlertType(AlertType.OVERLOAD);
             alert.setLoadRate(loadRate);
-            alert.setMessage("User is overloaded at " + String.format("%.1f", loadRate) + "% capacity");
+            alert.setMessage(String.format("User is overloaded at %.1f%% capacity", loadRate));
             alert.setCreatedAt(LocalDateTime.now());
             return capacityAlertRepository.save(alert);
         } else if (loadRate < 80.0) {
@@ -60,7 +61,7 @@ public class CapacityService {
             alert.setSprintId(sprintId);
             alert.setAlertType(AlertType.UNDERLOAD);
             alert.setLoadRate(loadRate);
-            alert.setMessage("User is underloaded at " + String.format("%.1f", loadRate) + "% capacity");
+            alert.setMessage(String.format("User is underloaded at %.1f%% capacity", loadRate));
             alert.setCreatedAt(LocalDateTime.now());
             return capacityAlertRepository.save(alert);
         }

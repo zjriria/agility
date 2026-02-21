@@ -44,6 +44,9 @@ public class TimeEntryService {
     }
 
     public TimeEntry update(Long id, TimeEntry timeEntry) {
+        if (!timeEntryRepository.existsById(id)) {
+            throw new RuntimeException("Time entry not found with id: " + id);
+        }
         timeEntry.setId(id);
         return timeEntryRepository.save(timeEntry);
     }
