@@ -1,0 +1,9 @@
+com/agility/task/repository/TaskRepository.class
+com/agility/task/model/TaskType.class
+com/agility/task/TaskServiceApplication.class
+com/agility/task/model/Task.class
+com/agility/task/model/TaskStatus.class
+com/agility/task/controller/BacklogController.class
+com/agility/task/model/TaskPriority.class
+com/agility/task/controller/TaskController.class
+com/agility/task/service/TaskService.class

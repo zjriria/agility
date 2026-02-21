@@ -1,0 +1,8 @@
+com/agility/timetracking/controller/TimeEntryController.class
+com/agility/timetracking/TimeTrackingServiceApplication.class
+com/agility/timetracking/model/CapacityReport.class
+com/agility/timetracking/service/CapacityService.class
+com/agility/timetracking/controller/CapacityController.class
+com/agility/timetracking/model/TimeEntry.class
+com/agility/timetracking/service/TimeTrackingService.class
+com/agility/timetracking/repository/TimeEntryRepository.class

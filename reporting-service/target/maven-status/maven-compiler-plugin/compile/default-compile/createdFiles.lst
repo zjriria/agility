@@ -1,0 +1,7 @@
+com/agility/reporting/model/BurndownData.class
+com/agility/reporting/config/WebClientConfig.class
+com/agility/reporting/service/ReportingService.class
+com/agility/reporting/ReportingServiceApplication.class
+com/agility/reporting/model/BurndownData$BurndownPoint.class
+com/agility/reporting/model/SprintReport.class
+com/agility/reporting/controller/ReportController.class
