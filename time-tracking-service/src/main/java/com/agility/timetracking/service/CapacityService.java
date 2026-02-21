@@ -19,8 +19,8 @@ public class CapacityService {
     private final TimeEntryRepository timeEntryRepository;
 
     private static final double DEFAULT_WEEKLY_CAPACITY = 40.0;
-    private static final double UNDERLOAD_THRESHOLD = 80.0;
-    private static final double OVERLOAD_THRESHOLD = 100.0;
+    private static final double UNDERLOAD_THRESHOLD = CapacityReport.UNDERLOAD_THRESHOLD;
+    private static final double OVERLOAD_THRESHOLD = CapacityReport.OVERLOAD_THRESHOLD;
 
     public CapacityReport getUserCapacity(Long userId, LocalDate startDate, LocalDate endDate,
                                            Double weeklyCapacityHours) {

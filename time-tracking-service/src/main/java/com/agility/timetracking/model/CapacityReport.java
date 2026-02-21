@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CapacityReport {
 
+    public static final double UNDERLOAD_THRESHOLD = 80.0;
+    public static final double OVERLOAD_THRESHOLD = 100.0;
+
     private Long userId;
     private String username;
     private Double totalAvailableHours;
@@ -17,10 +20,10 @@ public class CapacityReport {
     private String alertLevel;
 
     public boolean isUnderloaded() {
-        return loadRatePercentage != null && loadRatePercentage < 80.0;
+        return loadRatePercentage != null && loadRatePercentage < UNDERLOAD_THRESHOLD;
     }
 
     public boolean isOverloaded() {
-        return loadRatePercentage != null && loadRatePercentage > 100.0;
+        return loadRatePercentage != null && loadRatePercentage > OVERLOAD_THRESHOLD;
     }
 }

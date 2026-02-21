@@ -22,7 +22,7 @@ function TimesheetView() {
     if (user) {
       loadEntries();
     }
-  }, []);
+  }, [user?.id]);
 
   const loadEntries = async () => {
     setLoading(true);
