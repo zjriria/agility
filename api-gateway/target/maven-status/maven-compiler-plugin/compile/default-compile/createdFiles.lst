@@ -1,4 +1,0 @@
-com/agility/gateway/security/JwtAuthenticationFilter.class
-com/agility/gateway/config/SecurityConfig.class
-com/agility/gateway/ApiGatewayApplication.class
-com/agility/gateway/config/GatewayConfig.class

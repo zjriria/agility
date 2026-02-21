@@ -19,4 +19,27 @@ rad.json
 #License-file
 *.flf
 #Test results file
-TestResults.xml*/target/
+TestResults.xml
+
+### Maven ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+
+### Node / React ###
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+### IDE ###
+.idea/
+*.iml
+*.iws
+*.ipr
+*.DS_Store

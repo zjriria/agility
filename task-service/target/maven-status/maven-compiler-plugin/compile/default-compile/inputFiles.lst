@@ -1,9 +1,0 @@
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/model/TaskPriority.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/model/Task.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/model/TaskType.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/service/TaskService.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/repository/TaskRepository.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/controller/TaskController.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/TaskServiceApplication.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/model/TaskStatus.java
-/home/runner/work/agility/agility/task-service/src/main/java/com/agility/task/controller/BacklogController.java

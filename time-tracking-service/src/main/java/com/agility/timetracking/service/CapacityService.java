@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class CapacityService {
         List<TimeEntry> entries = timeEntryRepository.findByUserIdAndDateBetween(userId, start, end);
         double totalLogged = entries.stream().mapToDouble(TimeEntry::getHoursLogged).sum();
 
-        long days = start.until(end).getDays() + 1;
+        long days = ChronoUnit.DAYS.between(start, end) + 1;
         double weeksInPeriod = days / 7.0;
         double capacity = weeklyCapacityHours != null ? weeklyCapacityHours : DEFAULT_WEEKLY_CAPACITY;
         double totalAvailable = capacity * weeksInPeriod;
@@ -55,7 +56,7 @@ public class CapacityService {
                 .collect(Collectors.groupingBy(TimeEntry::getUserId,
                         Collectors.summingDouble(TimeEntry::getHoursLogged)));
 
-        long days = start.until(end).getDays() + 1;
+        long days = ChronoUnit.DAYS.between(start, end) + 1;
         double weeksInPeriod = days / 7.0;
         double totalAvailable = DEFAULT_WEEKLY_CAPACITY * weeksInPeriod;
 
@@ -84,7 +85,7 @@ public class CapacityService {
                 .collect(Collectors.groupingBy(TimeEntry::getUserId,
                         Collectors.summingDouble(TimeEntry::getHoursLogged)));
 
-        long days = start.until(end).getDays() + 1;
+        long days = ChronoUnit.DAYS.between(start, end) + 1;
         double weeksInPeriod = days / 7.0;
         double totalAvailable = DEFAULT_WEEKLY_CAPACITY * weeksInPeriod;
 
