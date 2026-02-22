@@ -181,7 +181,7 @@ export default function TaskBoard() {
   useEffect(() => {
     fetchTasks();
     fetchSprints();
-  }, [projectId, filterSprint]);
+  }, [projectId, filterSprint]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDragStart = (e, taskId) => {
     setDraggedId(taskId);

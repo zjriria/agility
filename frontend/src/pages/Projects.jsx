@@ -164,7 +164,7 @@ export default function Projects() {
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleExpand = async (projectId) => {
     if (expandedId === projectId) {

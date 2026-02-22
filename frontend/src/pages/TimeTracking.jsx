@@ -151,7 +151,7 @@ export default function TimeTracking() {
 
   useEffect(() => {
     fetchEntries();
-  }, []);
+  }, [user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e) => {
     e.preventDefault();

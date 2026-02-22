@@ -116,7 +116,7 @@ export default function Sprints() {
 
   useEffect(() => {
     fetchSprints();
-  }, [projectId]);
+  }, [projectId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e) => {
     e.preventDefault();

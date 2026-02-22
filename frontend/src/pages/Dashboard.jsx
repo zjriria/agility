@@ -89,7 +89,7 @@ export default function Dashboard() {
       }
     };
     fetchStats();
-  }, []);
+  }, [user]);
 
   const cards = [
     { label: 'Total Projects', value: stats.projects },
