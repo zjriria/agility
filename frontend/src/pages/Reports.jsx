@@ -95,33 +95,42 @@ export default function Reports() {
   }, []);
 
   useEffect(() => {
-    if (!selectedProject) {
-      setSprints([]);
-      return;
-    }
+    let ignore = false;
+    if (!selectedProject) return;
     sprintsApi.getByProjectId(selectedProject).then((res) => {
-      setSprints(Array.isArray(res.data) ? res.data : []);
-    }).catch(() => setSprints([]));
+      if (!ignore) setSprints(Array.isArray(res.data) ? res.data : []);
+    }).catch(() => {
+      if (!ignore) setSprints([]);
+    });
+    return () => { ignore = true; };
   }, [selectedProject]);
 
   useEffect(() => {
-    if (!selectedSprint) {
-      setProgress(null);
-      setBurndown(null);
-      setVelocity(null);
-      return;
-    }
-    reportsApi.getSprintProgress(selectedSprint).then((res) => setProgress(res.data)).catch(() => setProgress(null));
-    reportsApi.getBurndown(selectedSprint).then((res) => setBurndown(res.data)).catch(() => setBurndown(null));
-    reportsApi.getVelocity(selectedSprint).then((res) => setVelocity(res.data)).catch(() => setVelocity(null));
+    let ignore = false;
+    if (!selectedSprint) return;
+    Promise.all([
+      reportsApi.getSprintProgress(selectedSprint).catch(() => null),
+      reportsApi.getBurndown(selectedSprint).catch(() => null),
+      reportsApi.getVelocity(selectedSprint).catch(() => null),
+    ]).then(([p, b, v]) => {
+      if (!ignore) {
+        setProgress(p?.data || null);
+        setBurndown(b?.data || null);
+        setVelocity(v?.data || null);
+      }
+    });
+    return () => { ignore = true; };
   }, [selectedSprint]);
 
   useEffect(() => {
-    if (!selectedProject) {
-      setWorkload(null);
-      return;
-    }
-    reportsApi.getTeamWorkload(selectedProject).then((res) => setWorkload(res.data)).catch(() => setWorkload(null));
+    let ignore = false;
+    if (!selectedProject) return;
+    reportsApi.getTeamWorkload(selectedProject).then((res) => {
+      if (!ignore) setWorkload(res.data);
+    }).catch(() => {
+      if (!ignore) setWorkload(null);
+    });
+    return () => { ignore = true; };
   }, [selectedProject]);
 
   const renderProgressBar = (value, max, color) => {
@@ -142,7 +151,7 @@ export default function Reports() {
       <div style={styles.filterRow}>
         <div>
           <label style={styles.label}>Project: </label>
-          <select style={styles.select} value={selectedProject} onChange={(e) => { setSelectedProject(e.target.value); setSelectedSprint(''); }}>
+          <select style={styles.select} value={selectedProject} onChange={(e) => { setSelectedProject(e.target.value); setSelectedSprint(''); setSprints([]); }}>
             <option value="">Select a project</option>
             {projects.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
           </select>
@@ -176,7 +185,7 @@ export default function Reports() {
                     <div style={styles.statLabel}>Completed</div>
                   </div>
                   <div style={styles.statCard}>
-                    <div style={styles.statValue}>{progress.remainingTasks ?? (progress.totalTasks - progress.completedTasks) ?? 0}</div>
+                    <div style={styles.statValue}>{progress.remainingTasks ?? (progress.totalTasks - progress.completedTasks)}</div>
                     <div style={styles.statLabel}>Remaining</div>
                   </div>
                 </div>

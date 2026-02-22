@@ -18,11 +18,17 @@ The application follows a microservices architecture using Spring Cloud:
 
 ## Tech Stack
 
+### Backend
 - **Java 17** + **Spring Boot 3.2.5** + **Spring Cloud 2023.0.1**
 - **Spring Cloud Netflix Eureka** for service discovery
 - **Spring Cloud Gateway** for API routing
 - **Spring Security + JWT** for authentication and authorization
 - **Spring Data JPA** with H2 (dev) / MySQL (prod)
+
+### Frontend
+- **React 19** with **Vite** for fast development
+- **React Router** for client-side routing
+- **Axios** for API communication with JWT interceptors
 
 ## User Roles
 
@@ -37,10 +43,15 @@ The application follows a microservices architecture using Spring Cloud:
 ### Prerequisites
 - Java 17+
 - Maven 3.8+
+- Node.js 18+
 
 ### Build
 ```bash
+# Backend
 mvn clean install
+
+# Frontend
+cd frontend && npm install && npm run build
 ```
 
 ### Run (in order)
@@ -57,6 +68,9 @@ cd project-service && mvn spring-boot:run
 cd task-service && mvn spring-boot:run
 cd timetracking-service && mvn spring-boot:run
 cd reporting-service && mvn spring-boot:run
+
+# 4. Start Frontend (dev mode on port 3000)
+cd frontend && npm run dev
 ```
 
 ### API Endpoints (via Gateway at port 8080)
@@ -70,3 +84,16 @@ cd reporting-service && mvn spring-boot:run
 - `/api/backlog/**` - Backlog management
 - `/api/timetracking/**` - Time entry logging
 - `/api/reports/**` - Reports and dashboards
+
+## Frontend Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| **Login** | `/login` | Authentication with username/password |
+| **Register** | `/register` | New user registration with role selection |
+| **Dashboard** | `/` | Overview with project/task/sprint metrics |
+| **Projects** | `/projects` | Project CRUD with methodology selection |
+| **Sprints** | `/projects/:id/sprints` | Sprint management per project |
+| **Task Board** | `/projects/:id/board`, `/tasks` | Kanban board with drag-and-drop |
+| **Time Tracking** | `/timetracking` | Timesheet entry with daily/total summaries |
+| **Reports** | `/reports` | Sprint progress, burndown, velocity, workload |

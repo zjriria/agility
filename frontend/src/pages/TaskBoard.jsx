@@ -168,20 +168,30 @@ export default function TaskBoard() {
     }
   };
 
-  const fetchSprints = async () => {
-    if (!projectId) return;
-    try {
-      const res = await sprintsApi.getByProjectId(projectId);
-      setSprints(Array.isArray(res.data) ? res.data : []);
-    } catch {
-      // ignore
-    }
-  };
-
   useEffect(() => {
-    fetchTasks();
-    fetchSprints();
-  }, [projectId, filterSprint]); // eslint-disable-line react-hooks/exhaustive-deps
+    let ignore = false;
+    const loadTasks = projectId
+      ? tasksApi.getByProjectId(projectId)
+      : tasksApi.getAll();
+    loadTasks.then((res) => {
+      if (!ignore) {
+        let filtered = res.data;
+        if (filterSprint) {
+          filtered = filtered.filter((t) => String(t.sprintId) === String(filterSprint));
+        }
+        setTasks(Array.isArray(filtered) ? filtered : []);
+      }
+    }).catch(() => {
+      if (!ignore) setError('Failed to load tasks');
+    });
+
+    if (projectId) {
+      sprintsApi.getByProjectId(projectId).then((res) => {
+        if (!ignore) setSprints(Array.isArray(res.data) ? res.data : []);
+      }).catch(() => {});
+    }
+    return () => { ignore = true; };
+  }, [projectId, filterSprint]);
 
   const handleDragStart = (e, taskId) => {
     setDraggedId(taskId);

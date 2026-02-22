@@ -150,8 +150,16 @@ export default function TimeTracking() {
   };
 
   useEffect(() => {
-    fetchEntries();
-  }, [user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+    let ignore = false;
+    const userId = user?.id;
+    const request = userId ? timetrackingApi.getByUserId(userId) : timetrackingApi.getAll();
+    request.then((res) => {
+      if (!ignore) setEntries(Array.isArray(res.data) ? res.data : []);
+    }).catch(() => {
+      if (!ignore) setError('Failed to load time entries');
+    });
+    return () => { ignore = true; };
+  }, [user?.id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

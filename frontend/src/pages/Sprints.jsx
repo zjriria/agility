@@ -115,8 +115,14 @@ export default function Sprints() {
   };
 
   useEffect(() => {
-    fetchSprints();
-  }, [projectId]); // eslint-disable-line react-hooks/exhaustive-deps
+    let ignore = false;
+    sprintsApi.getByProjectId(projectId).then((res) => {
+      if (!ignore) setSprints(Array.isArray(res.data) ? res.data : []);
+    }).catch(() => {
+      if (!ignore) setError('Failed to load sprints');
+    });
+    return () => { ignore = true; };
+  }, [projectId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

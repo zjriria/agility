@@ -163,8 +163,14 @@ export default function Projects() {
   };
 
   useEffect(() => {
-    fetchProjects();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    let ignore = false;
+    projectsApi.getAll().then((res) => {
+      if (!ignore) setProjects(Array.isArray(res.data) ? res.data : []);
+    }).catch(() => {
+      if (!ignore) setError('Failed to load projects');
+    });
+    return () => { ignore = true; };
+  }, []);
 
   const handleExpand = async (projectId) => {
     if (expandedId === projectId) {
