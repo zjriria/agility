@@ -30,7 +30,7 @@ public class TimeEntryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TimeEntry> getById(@PathVariable Long id) {
+    public ResponseEntity<TimeEntry> getById(@PathVariable String id) {
         return timeEntryService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -52,12 +52,12 @@ public class TimeEntryController {
     }
 
     @PutMapping("/{id}")
-    public TimeEntry update(@PathVariable Long id, @RequestBody TimeEntry timeEntry) {
+    public TimeEntry update(@PathVariable String id, @RequestBody TimeEntry timeEntry) {
         return timeEntryService.update(id, timeEntry);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         timeEntryService.delete(id);
         return ResponseEntity.noContent().build();
     }

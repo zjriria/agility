@@ -22,7 +22,7 @@ public class TimeEntryService {
         return timeEntryRepository.findAll();
     }
 
-    public Optional<TimeEntry> findById(Long id) {
+    public Optional<TimeEntry> findById(String id) {
         return timeEntryRepository.findById(id);
     }
 
@@ -43,7 +43,7 @@ public class TimeEntryService {
         return timeEntryRepository.save(timeEntry);
     }
 
-    public TimeEntry update(Long id, TimeEntry timeEntry) {
+    public TimeEntry update(String id, TimeEntry timeEntry) {
         if (!timeEntryRepository.existsById(id)) {
             throw new RuntimeException("Time entry not found with id: " + id);
         }
@@ -51,7 +51,7 @@ public class TimeEntryService {
         return timeEntryRepository.save(timeEntry);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         timeEntryRepository.deleteById(id);
     }
 }
